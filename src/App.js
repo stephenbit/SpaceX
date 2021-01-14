@@ -6,6 +6,7 @@ import "./stylesheet.scss";
 
 function App() {
   const [launches, setLaunches] = useState([]);
+  const [sortByAscending, setsortByAscending] = useState(true);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/")
@@ -16,16 +17,19 @@ function App() {
   return (
     <div
       className={
-        launches.length < 2 || launches == undefined ? "blocked" : "App"
+        launches.length < 2 || launches === undefined ? "blocked" : "App"
       }
     >
-      <Header />
+      <Header
+        sortByAscending={sortByAscending}
+        setsortByAscending={setsortByAscending}
+      />
       <div className="main-content">
         <div className="left-container">
           <img src={rocket} alt="rocket taking off"></img>
         </div>
         <div className="right-container">
-          <LaunchesCom launches={launches} />
+          <LaunchesCom launches={launches} sortByAscending={sortByAscending} />
         </div>
       </div>
     </div>
