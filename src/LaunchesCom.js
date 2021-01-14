@@ -15,14 +15,15 @@ function LaunchesCom({ launches, sortByAscending }) {
     const formattedMonth = new Date(launch.date_utc).getUTCMonth() + 1;
     const formattedYear = new Date(launch.date_utc).getUTCFullYear();
     const fullDate = `${formattedDate}/${formattedMonth}/${formattedYear}`;
-
+    const rocketName = rockets.find((rocket) => rocket.id === launch.rocket)
+      .name;
     return (
       <li key={launch.id}>
         <div className="grid-container">
           <div className="numbering">#{numbering}</div>
           <div className="launch-name"> {launch.name}</div>
           <div className="date">{fullDate}</div>
-          <div className="rocket-name">{launch.rocket}</div>
+          <div className="rocket-name">{rocketName}</div>
         </div>
       </li>
     );
