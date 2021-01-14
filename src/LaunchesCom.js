@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./stylesheet.scss";
 
-function LaunchesCom({ launches }) {
+function LaunchesCom({ launches, sortByAscending }) {
   const [rockets, setRockets] = useState([]);
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/rockets")
@@ -18,13 +18,17 @@ function LaunchesCom({ launches }) {
 
     return (
       <li key={launch.id}>
-        <h2>
-          #{numbering} {launch.name} {fullDate} {launch.rocket}
-        </h2>
+        <div className="grid-container">
+          <div className="numbering">#{numbering}</div>
+          <div className="launch-name"> {launch.name}</div>
+          <div className="date">{fullDate}</div>
+          <div className="rocket-name">{launch.rocket}</div>
+        </div>
       </li>
     );
   });
 
-  return <ol>{launchesList}</ol>;
+  return <ol>{sortByAscending ? launchesList : launchesList.reverse()}</ol>;
 }
+
 export default LaunchesCom;
