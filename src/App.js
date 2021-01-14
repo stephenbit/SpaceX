@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import logo from "./assets/img/spacex-logo.png";
 import LaunchesCom from "./LaunchesCom";
+import Header from "./Header";
+import rocket from "./assets/img/launch-home@3x.png";
 import "./stylesheet.scss";
 
 function App() {
@@ -14,10 +15,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      <LaunchesCom launches={launches} />
+      <Header />
+      <div className="main-content">
+        <img src={rocket} alt="rocket taking off"></img>
+        <LaunchesCom launches={launches} />
+      </div>
     </div>
   );
 }

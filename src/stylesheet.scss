@@ -50,3 +50,43 @@ $font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
 li {
   list-style-type: none;
 }
+
+.App {
+  font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
+  padding: 3vh 0 0 3vw;
+  width: 90vw;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  img {
+    height: 50px;
+  }
+  div {
+    font-size: 30px;
+    margin: 15px 0 0 -30px;
+    letter-spacing: 5px;
+  }
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-around;
+  max-height: 80vh;
+  padding-top: 50px;
+  img {
+    max-width: 400px;
+    width: auto;
+    height: auto;
+  }
+  div {
+  }
+  ol {
+    overflow: hidden;
+  }
+  li {
+    border-radius: 5px;
+    box-shadow: 0px 2px 3px 2px #d2d2d2;
+  }
+}
