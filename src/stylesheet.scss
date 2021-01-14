@@ -47,14 +47,15 @@ $font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
   font-style: normal;
 }
 
-li {
-  list-style-type: none;
+.blocked {
+  display: none;
 }
 
 .App {
   font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
-  padding: 3vh 0 0 3vw;
+  margin: 3vh;
   width: 90vw;
+  height: 85vh;
 }
 
 header {
@@ -72,21 +73,63 @@ header {
 
 .main-content {
   display: flex;
-  justify-content: space-around;
-  max-height: 80vh;
-  padding-top: 50px;
-  img {
-    max-width: 400px;
-    width: auto;
-    height: auto;
+  flex-direction: row;
+  position: absolute;
+  margin: 50px;
+  max-height: 400px;
+  .left-container {
+    width: 50%;
+    margin-top: 50px;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
-  div {
-  }
-  ol {
-    overflow: hidden;
-  }
-  li {
-    border-radius: 5px;
-    box-shadow: 0px 2px 3px 2px #d2d2d2;
+  .right-container {
+    height: 400px;
+    ol {
+      overflow: hidden;
+      li {
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 3px 2px #d2d2d2;
+        list-style-type: none;
+        .grid-container {
+          height: 100px;
+          margin: 0px 10px 0px 10px;
+          display: grid;
+          grid-template-columns: 0.3fr 4.2fr 0.1fr 1.1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 0px 0px;
+          align-items: center;
+          grid-template-areas:
+            "numbering launch-name date date"
+            "numbering launch-name rocket-name rocket-name";
+          .numbering {
+            grid-area: numbering;
+            font-size: 40px;
+            font-weight: bold;
+            color: #555555;
+          }
+          .launch-name {
+            grid-area: launch-name;
+            font-size: 40px;
+            margin-left: 20px;
+            color: #555555;
+            font-weight: bold;
+          }
+          .date {
+            grid-area: date;
+            text-align: right;
+            color: #777777;
+          }
+          .rocket-name {
+            grid-area: rocket-name;
+            text-align: right;
+            color: #555555;
+          }
+        }
+      }
+    }
   }
 }

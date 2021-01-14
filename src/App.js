@@ -14,11 +14,19 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div
+      className={
+        launches.length < 2 || launches == undefined ? "blocked" : "App"
+      }
+    >
       <Header />
       <div className="main-content">
-        <img src={rocket} alt="rocket taking off"></img>
-        <LaunchesCom launches={launches} />
+        <div className="left-container">
+          <img src={rocket} alt="rocket taking off"></img>
+        </div>
+        <div className="right-container">
+          <LaunchesCom launches={launches} />
+        </div>
       </div>
     </div>
   );

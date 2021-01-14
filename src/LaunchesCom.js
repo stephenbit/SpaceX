@@ -18,9 +18,12 @@ function LaunchesCom({ launches }) {
 
     return (
       <li key={launch.id}>
-        <h2>
-          #{numbering} {launch.name} {fullDate} {launch.rocket}
-        </h2>
+        <div class="grid-container">
+          <div class="numbering">#{numbering}</div>
+          <div class="launch-name"> {launch.name}</div>
+          <div class="date">{fullDate}</div>
+          <div class="rocket-name">{launch.rocket}</div>
+        </div>
       </li>
     );
   });
