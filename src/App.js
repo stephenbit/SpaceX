@@ -7,12 +7,21 @@ import "./stylesheet.scss";
 function App() {
   const [launches, setLaunches] = useState([]);
   const [sortByAscending, setsortByAscending] = useState(true);
+  const [selectedYear, setSelectedYear] = useState(null);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/")
       .then((res) => res.json())
       .then((data) => setLaunches(data));
   }, []);
+
+  const filteredLaunches =
+    selectedYear !== null
+      ? launches.filter(
+          (launch) =>
+            new Date(launch.date_utc).getUTCFullYear() === selectedYear
+        )
+      : launches;
 
   return (
     <div
@@ -29,7 +38,10 @@ function App() {
           <img src={rocket} alt="rocket taking off"></img>
         </div>
         <div className="right-container">
-          <LaunchesCom launches={launches} sortByAscending={sortByAscending} />
+          <LaunchesCom
+            filteredLaunches={filteredLaunches}
+            sortByAscending={sortByAscending}
+          />
         </div>
       </div>
     </div>
