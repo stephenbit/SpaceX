@@ -9,8 +9,6 @@ function Header({
   setSelectedYear,
   yearsList,
 }) {
-  console.log(yearsList);
-
   return (
     <header>
       <img src={logo} alt="space x logo" />
@@ -18,7 +16,19 @@ function Header({
       <button onClick={() => setsortByAscending((value) => !value)}>
         {sortByAscending ? "Sort By Descending" : "Sort By Ascending"}
       </button>
-      <div></div>
+      <select
+        id="lang"
+        onChange={(e) => setSelectedYear(e.target.value)}
+        value={selectedYear}
+      >
+        {yearsList.map((year) => {
+          return (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          );
+        })}
+      </select>
     </header>
   );
 }

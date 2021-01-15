@@ -1,87 +1,95 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import rocket from "./assets/img/launch-home@3x.png";
+import rocketImg from "./assets/img/launch-home@3x.png";
 import "./stylesheet.scss";
 
 function App() {
-  const [launches, setLaunches] = useState([]);
-  const [sortByAscending, setsortByAscending] = useState(true);
-  const [selectedYear, setSelectedYear] = useState(null);
   const [rockets, setRockets] = useState([]);
+  const [launches, setLaunches] = useState(null);
+  const [sortByAscending, setsortByAscending] = useState(true);
+  const [selectedYear, setSelectedYear] = useState("ALL");
+  const [years, setYears] = useState(["ALL"]);
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v4/rockets")
+    fetch("https://api.spacexdata.com/v4/rockets/")
       .then((res) => res.json())
-      .then((data) => setRockets(data));
+      // TODO: to check if API is undefined before
+      .then(setRockets);
   }, []);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/")
       .then((res) => res.json())
-      .then((data) => setLaunches(data));
+      // TODO: to check if API is undefined before
+      .then(setLaunches);
   }, []);
 
+  useEffect(() => {
+    if (launches === null) {
+      return;
+    }
+    const yearsList = launches.map((launch) =>
+      new Date(launch.date_utc).getUTCFullYear()
+    );
+    const newYearsList = [...new Set(yearsList)].sort();
+    newYearsList.unshift("ALL");
+    setYears(newYearsList);
+  }, [launches]);
 
-  // const yearsList = launches.map((launch) => {
-  //   const distinctYears = new Date(launch.date_utc)
-  //     .getUTCFullYear()
-  //     .filter((value, index, self) => self.indexOf(value) === index);
+  function showFilteredLaunches() {
+    if (launches === null) {
+      return "No Launches Found";
+    }
+    let filteredLaunches =
+      selectedYear !== "ALL"
+        ? launches.filter(
+            (launch) =>
+              new Date(launch.date_utc).getUTCFullYear().toString() ===
+              selectedYear
+          )
+        : [...launches];
+    if (!sortByAscending) {
+      filteredLaunches.reverse();
+    }
+    console.log(filteredLaunches);
+    return filteredLaunches.map(oneLaunch);
+  }
 
-  //   return (
-  //     <select>
-  //       <option value={distinctYears}>{distinctYears}</option>
-  //     </select>
-  //   );
-  // });
-
-  const filteredLaunches =
-    selectedYear !== null
-      ? launches.filter(
-          (launch) =>
-            new Date(launch.date_utc).getUTCFullYear() === selectedYear
-        )
-      : launches;
-
-  const launchesList = filteredLaunches.map((filteredLaunch, index) => {
+  function oneLaunch(launch, index) {
+    const oneRocket = rockets.find((rocket) => rocket.id === launch.rocket);
+    const rocketName = oneRocket ? oneRocket.name : "";
     const numbering = index + 1;
-    const formattedDate = new Date(filteredLaunch.date_utc).getUTCDate();
-    const formattedMonth = new Date(filteredLaunch.date_utc).getUTCMonth() + 1;
-    const formattedYear = new Date(filteredLaunch.date_utc).getUTCFullYear();
+    const formattedDate = new Date(launch.date_utc).getUTCDate();
+    const formattedMonth = new Date(launch.date_utc).getUTCMonth() + 1;
+    const formattedYear = new Date(launch.date_utc).getUTCFullYear();
     const fullDate = `${formattedDate}/${formattedMonth}/${formattedYear}`;
-    const rocketName = rockets.find(
-      (rocket) => rocket.id === filteredLaunch.rocket
-    ).name;
-
     return (
-      <li key={filteredLaunch.id}>
+      <li key={launch.id}>
         <div className="grid-container">
           <div className="numbering">#{numbering}</div>
-          <div className="launch-name"> {filteredLaunch.name}</div>
+          <div className="launch-name"> {launch.name}</div>
           <div className="date">{fullDate}</div>
           <div className="rocket-name">{rocketName}</div>
         </div>
       </li>
     );
-  });
-  console.log();
+  }
+
   return (
-    <div
-      className={
-        launches.length < 2 || launches === undefined ? "blocked" : "App"
-      }
-    >
+    <div className="App">
       <Header
         sortByAscending={sortByAscending}
         setsortByAscending={setsortByAscending}
         selectedYear={selectedYear}
         setSelectedYear={setSelectedYear}
+        yearsList={years}
       />
       <div className="main-content">
         <div className="left-container">
-          <img src={rocket} alt="rocket taking off"></img>
+          <img src={rocketImg} alt="rocket taking off"></img>
         </div>
         <div className="right-container">
-          <ol>{sortByAscending ? launchesList : launchesList.reverse()}</ol>
+          <ol>{showFilteredLaunches()}</ol>
         </div>
       </div>
     </div>
