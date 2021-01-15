@@ -2,7 +2,15 @@ import React from "react";
 import logo from "./assets/img/spacex-logo.png";
 import "./stylesheet.scss";
 
-function Header({ sortByAscending, setsortByAscending }) {
+function Header({
+  sortByAscending,
+  setsortByAscending,
+  selectedYear,
+  setSelectedYear,
+  yearsList,
+}) {
+  console.log(yearsList);
+
   return (
     <header>
       <img src={logo} alt="space x logo" />
@@ -10,6 +18,7 @@ function Header({ sortByAscending, setsortByAscending }) {
       <button onClick={() => setsortByAscending((value) => !value)}>
         {sortByAscending ? "Sort By Descending" : "Sort By Ascending"}
       </button>
+      <div></div>
     </header>
   );
 }
