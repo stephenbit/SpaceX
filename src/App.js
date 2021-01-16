@@ -15,14 +15,14 @@ function App() {
       .then((res) => res.json())
       // TODO: to check if API is undefined before
       .then(setRockets);
-  }, []);
+  }, [rockets]);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/")
       .then((res) => res.json())
       // TODO: to check if API is undefined before
       .then(setLaunches);
-  }, []);
+  }, [launches]);
 
   useEffect(() => {
     if (launches === null) {
@@ -38,7 +38,7 @@ function App() {
 
   function showFilteredLaunches() {
     if (launches === null) {
-      return "No Launches Found";
+      return "{ }";
     }
     let filteredLaunches =
       selectedYear !== "ALL"
@@ -83,6 +83,8 @@ function App() {
         selectedYear={selectedYear}
         setSelectedYear={setSelectedYear}
         yearsList={years}
+        setLaunches={setLaunches}
+        setRockets={setRockets}
       />
       <div className="main-content">
         <div className="left-container">
