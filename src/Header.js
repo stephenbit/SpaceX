@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "./assets/img/spacex-logo.png";
 import "./stylesheet.scss";
+import refreshImg from "./assets/icon/refresh@3x.png";
+import sortImg from "./assets/icon/sort@3x.png";
+import selectImg from "./assets/icon/select@3x.png";
 
 function Header({
   sortByAscending,
@@ -13,32 +16,38 @@ function Header({
 }) {
   return (
     <header>
-      <img src={logo} alt="space x logo" />
-      <div>LAUNCHES</div>
-      <button onClick={() => setsortByAscending((value) => !value)}>
-        {sortByAscending ? "Sort By Descending" : "Sort By Ascending"}
-      </button>
-      <select
-        id="lang"
-        onChange={(e) => setSelectedYear(e.target.value)}
-        value={selectedYear}
-      >
-        {yearsList.map((year) => {
-          return (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          );
-        })}
-      </select>
-      <button
-        onClick={function reload() {
-          setLaunches(null);
-          setRockets(null);
-        }}
-      >
-        Reload
-      </button>
+      <img className="logo" src={logo} alt="space x logo" />
+      <div className="launches-text">LAUNCHES</div>{" "}
+      <div className="reload">
+        <button
+          onClick={function reload() {
+            setLaunches(null);
+            setRockets(null);
+          }}
+        >
+          Reload
+          <img className="header-icons" src={refreshImg} />
+        </button>
+      </div>
+      <div className="filters">
+        <button onClick={() => setsortByAscending((value) => !value)}>
+          {sortByAscending ? "Sort Descending" : "Sort Ascending"}{" "}
+          <img className="header-icons" src={sortImg} />
+        </button>
+        <select
+          id="lang"
+          onChange={(e) => setSelectedYear(e.target.value)}
+          value={selectedYear}
+        >
+          {yearsList.map((year) => {
+            return (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </header>
   );
 }

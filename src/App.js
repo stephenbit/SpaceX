@@ -7,8 +7,8 @@ function App() {
   const [rockets, setRockets] = useState(null);
   const [launches, setLaunches] = useState(null);
   const [sortByAscending, setsortByAscending] = useState(true);
-  const [selectedYear, setSelectedYear] = useState("ALL");
-  const [years, setYears] = useState(["ALL"]);
+  const [selectedYear, setSelectedYear] = useState("Filter by Year");
+  const [years, setYears] = useState(["Filter by Year"]);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/rockets/")
@@ -32,7 +32,7 @@ function App() {
       new Date(launch.date_utc).getUTCFullYear()
     );
     const newYearsList = [...new Set(yearsList)].sort();
-    newYearsList.unshift("ALL");
+    newYearsList.unshift("Filter by Year");
     setYears(newYearsList);
   }, [launches]);
 
@@ -41,7 +41,7 @@ function App() {
       return "No Launches Found";
     }
     let filteredLaunches =
-      selectedYear !== "ALL"
+      selectedYear !== "Filter by Year"
         ? launches.filter(
             (launch) =>
               new Date(launch.date_utc).getUTCFullYear().toString() ===
