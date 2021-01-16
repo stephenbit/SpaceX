@@ -8,8 +8,6 @@ function Header({
   selectedYear,
   setSelectedYear,
   yearsList,
-  setLaunches,
-  setRockets,
 }) {
   return (
     <header>
@@ -31,14 +29,6 @@ function Header({
           );
         })}
       </select>
-      <button
-        onClick={function reload() {
-          setLaunches([]);
-          setRockets([]);
-        }}
-      >
-        Reload
-      </button>
     </header>
   );
 }
