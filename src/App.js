@@ -4,7 +4,7 @@ import rocketImg from "./assets/img/launch-home@3x.png";
 import "./stylesheet.scss";
 
 function App() {
-  const [rockets, setRockets] = useState([]);
+  const [rockets, setRockets] = useState(null);
   const [launches, setLaunches] = useState(null);
   const [sortByAscending, setsortByAscending] = useState(true);
   const [selectedYear, setSelectedYear] = useState("ALL");
@@ -15,14 +15,14 @@ function App() {
       .then((res) => res.json())
       // TODO: to check if API is undefined before
       .then(setRockets);
-  }, []);
+  }, [rockets == null]);
 
   useEffect(() => {
     fetch("https://api.spacexdata.com/v4/launches/")
       .then((res) => res.json())
       // TODO: to check if API is undefined before
       .then(setLaunches);
-  }, []);
+  }, [launches == null]);
 
   useEffect(() => {
     if (launches === null) {
@@ -51,7 +51,6 @@ function App() {
     if (!sortByAscending) {
       filteredLaunches.reverse();
     }
-    console.log(filteredLaunches);
     return filteredLaunches.map(oneLaunch);
   }
 
@@ -83,6 +82,8 @@ function App() {
         selectedYear={selectedYear}
         setSelectedYear={setSelectedYear}
         yearsList={years}
+        setLaunches={setLaunches}
+        setRockets={setRockets}
       />
       <div className="main-content">
         <div className="left-container">
