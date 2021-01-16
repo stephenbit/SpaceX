@@ -38,7 +38,7 @@ function App() {
 
   function showFilteredLaunches() {
     if (launches === null) {
-      return "No Launches Found";
+      return;
     }
     let filteredLaunches =
       selectedYear !== "Filter by Year"
