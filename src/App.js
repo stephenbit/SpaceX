@@ -3,6 +3,17 @@ import Header from "./Header";
 import rocketImg from "./assets/img/launch-home@3x.png";
 import "./stylesheet.scss";
 
+function parseLaunch(launch) {
+  const date = new Date(launch.date_utc);
+  return {
+    name: launch.name,
+    date: date.toLocaleDateString("en-GB"),
+    year: date.getUTCFullYear().toString(),
+    rocket: launch.rocket,
+    id: launch.id,
+  };
+}
+
 function App() {
   const [rockets, setRockets] = useState(null);
   const [launches, setLaunches] = useState(null);
@@ -11,26 +22,31 @@ function App() {
   const [years, setYears] = useState(["Filter by Year"]);
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v4/rockets/")
-      .then((res) => res.json())
-      // TODO: to check if API is undefined before
-      .then(setRockets);
-  }, [rockets == null]);
+    if (rockets == null) {
+      fetch("https://api.spacexdata.com/v4/rockets/")
+        .then((res) => res.json())
+        // TODO: to check if API is undefined before
+        // TODO: put the map here
+        .then(setRockets);
+    }
+  }, [rockets]);
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v4/launches/")
-      .then((res) => res.json())
-      // TODO: to check if API is undefined before
-      .then(setLaunches);
-  }, [launches == null]);
+    if (launches == null) {
+      fetch("https://api.spacexdata.com/v4/launches/")
+        .then((res) => res.json())
+        // TODO: to check if API is undefined before
+        .then((launches) => setLaunches(launches.map(parseLaunch)));
+    }
+  }, [launches]);
+
+  console.log(launches);
 
   useEffect(() => {
     if (launches === null) {
       return;
     }
-    const yearsList = launches.map((launch) =>
-      new Date(launch.date_utc).getUTCFullYear()
-    );
+    const yearsList = launches.map((launch) => launch.year);
     const newYearsList = [...new Set(yearsList)].sort();
     newYearsList.unshift("Filter by Year");
     setYears(newYearsList);
@@ -42,11 +58,7 @@ function App() {
     }
     let filteredLaunches =
       selectedYear !== "Filter by Year"
-        ? launches.filter(
-            (launch) =>
-              new Date(launch.date_utc).getUTCFullYear().toString() ===
-              selectedYear
-          )
+        ? launches.filter((launch) => launch.year === selectedYear)
         : [...launches];
     if (!sortByAscending) {
       filteredLaunches.reverse();
@@ -58,16 +70,12 @@ function App() {
     const oneRocket = rockets.find((rocket) => rocket.id === launch.rocket);
     const rocketName = oneRocket ? oneRocket.name : "";
     const numbering = index + 1;
-    const formattedDate = new Date(launch.date_utc).getUTCDate();
-    const formattedMonth = new Date(launch.date_utc).getUTCMonth() + 1;
-    const formattedYear = new Date(launch.date_utc).getUTCFullYear();
-    const fullDate = `${formattedDate}/${formattedMonth}/${formattedYear}`;
     return (
       <li key={launch.id}>
         <div className="grid-container">
           <div className="numbering">#{numbering}</div>
           <div className="launch-name"> {launch.name}</div>
-          <div className="date">{fullDate}</div>
+          <div className="date">{launch.date}</div>
           <div className="rocket-name">{rocketName}</div>
         </div>
       </li>
