@@ -87,7 +87,11 @@ function App() {
       />
       <div className="main-content">
         <div className="left-container">
-          <img src={rocketImg} alt="rocket taking off"></img>
+          <img
+            className="main-image"
+            src={rocketImg}
+            alt="rocket taking off"
+          ></img>
         </div>
         <div className="right-container">
           <ol>{showFilteredLaunches()}</ol>
