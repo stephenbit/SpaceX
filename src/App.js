@@ -17,7 +17,7 @@ function parseLaunch(launch) {
 function App() {
   const [rockets, setRockets] = useState(null);
   const [launches, setLaunches] = useState(null);
-  const [sortByAscending, setsortByAscending] = useState(true);
+  const [sortByAscending, setSortByAscending] = useState(true);
   const [selectedYear, setSelectedYear] = useState("Filter by Year");
   const [years, setYears] = useState(["Filter by Year"]);
 
@@ -82,16 +82,22 @@ function App() {
     );
   }
 
+  function reload() {
+    setLaunches(null);
+    setRockets(null);
+  }
+
   return (
     <div className="App">
       <Header
         sortByAscending={sortByAscending}
-        setsortByAscending={setsortByAscending}
+        setSortByAscending={setSortByAscending}
         selectedYear={selectedYear}
         setSelectedYear={setSelectedYear}
         yearsList={years}
         setLaunches={setLaunches}
         setRockets={setRockets}
+        reload={reload}
       />
       <div className="main-content">
         <div className="left-container">

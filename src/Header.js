@@ -7,30 +7,24 @@ import selectImg from "./assets/icon/select@3x.png";
 
 function Header({
   sortByAscending,
-  setsortByAscending,
+  setSortByAscending,
   selectedYear,
   setSelectedYear,
   yearsList,
-  setLaunches,
-  setRockets,
+  reload,
 }) {
   return (
     <header>
       <img className="logo" src={logo} alt="space x logo" />
       <div className="launches-text">LAUNCHES</div>{" "}
       <div className="reload">
-        <button
-          onClick={function reload() {
-            setLaunches(null);
-            setRockets(null);
-          }}
-        >
+        <button onClick={() => reload()}>
           Reload
           <img className="header-icons" src={refreshImg} />
         </button>
       </div>
       <div className="sort">
-        <button onClick={() => setsortByAscending((value) => !value)}>
+        <button onClick={() => setSortByAscending((value) => !value)}>
           {sortByAscending ? "Sort Descending" : "Sort Ascending"}
           <img className="header-icons" src={sortImg} />
         </button>
