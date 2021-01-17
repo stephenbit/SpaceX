@@ -29,11 +29,13 @@ function Header({
           <img className="header-icons" src={refreshImg} />
         </button>
       </div>
-      <div className="filters">
+      <div className="sort">
         <button onClick={() => setsortByAscending((value) => !value)}>
-          {sortByAscending ? "Sort Descending" : "Sort Ascending"}{" "}
+          {sortByAscending ? "Sort Descending" : "Sort Ascending"}
           <img className="header-icons" src={sortImg} />
         </button>
+      </div>
+      <div className="year">
         <select
           id="lang"
           onChange={(e) => setSelectedYear(e.target.value)}

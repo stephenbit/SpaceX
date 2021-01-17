@@ -53,21 +53,16 @@ $font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
 
 header {
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-columns: 1fr 1fr 2fr 2fr;
   grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "img launches-text reload"
-    "img launches-text filters";
-}
-select {
-  background-color: #1f5284;
-  border: none;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
+    "img launches-text reload reload"
+    "img launches-text sort year";
+  position: fixed;
+  background-color: white;
+  justify-items: end;
+  padding-bottom: 20px;
 }
 
 header img {
@@ -82,17 +77,24 @@ header img {
 }
 .reload {
   grid-area: reload;
-
   button {
     border-radius: 30px 0px 0px 30px;
-    left: 91%;
-    position: absolute;
   }
 }
-.filters {
-  grid-area: filters;
-  position: relative;
+.sort {
+  grid-area: sort;
 }
+.year {
+  grid-area: year;
+}
+
+.header-icons {
+  width: 12px;
+  padding-left: 10px;
+  vertical-align: middle;
+}
+
+select,
 button {
   background-color: #1f5284;
   border: none;
@@ -101,11 +103,6 @@ button {
   text-align: center;
   font-size: 16px;
   font-weight: bold;
-  .header-icons {
-    width: 12px;
-    padding-left: 10px;
-    vertical-align: middle;
-  }
 }
 
 .main-content {
@@ -115,16 +112,18 @@ button {
   grid-template-areas: "left-container right-container";
   .left-container {
     grid-area: left-container;
-    margin-top: 50px;
+    margin-top: 100px;
     .main-image {
-      width: 50%;
       position: fixed;
+      max-height: 80vh;
+      max-width: 50%;
     }
   }
   .right-container {
     grid-area: right-container;
     height: 80vh;
     justify-content: center;
+    margin-top: 100px;
     ol {
       overflow: hidden;
       li {
