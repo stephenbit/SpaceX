@@ -40,8 +40,6 @@ function App() {
     }
   }, [launches]);
 
-  console.log(launches);
-
   useEffect(() => {
     if (launches === null) {
       return;

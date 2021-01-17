@@ -3,7 +3,6 @@ import logo from "./assets/img/spacex-logo.png";
 import "./stylesheet.scss";
 import refreshImg from "./assets/icon/refresh@3x.png";
 import sortImg from "./assets/icon/sort@3x.png";
-import selectImg from "./assets/icon/select@3x.png";
 
 function Header({
   sortByAscending,
