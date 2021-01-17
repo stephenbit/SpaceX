@@ -49,13 +49,15 @@ $font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
 
 .App {
   font-family: "Brandon Grotesque", Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 header {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr 2fr;
   grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
+  row-gap: 10px;
   grid-template-areas:
     "img launches-text reload reload"
     "img launches-text sort year";
@@ -69,12 +71,14 @@ header img {
   grid-area: img;
   width: 20em;
 }
+
 .launches-text {
   grid-area: launches-text;
   font-size: 20px;
   margin: 15px 0 0 -30px;
   letter-spacing: 5px;
 }
+
 .reload {
   grid-area: reload;
   button {
@@ -86,23 +90,13 @@ header img {
 }
 .year {
   grid-area: year;
+  margin-right: 60px;
 }
 
 .header-icons {
   width: 12px;
   padding-left: 10px;
   vertical-align: middle;
-}
-
-select,
-button {
-  background-color: #1f5284;
-  border: none;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 .main-content {
@@ -121,11 +115,11 @@ button {
   }
   .right-container {
     grid-area: right-container;
-    height: 80vh;
     justify-content: center;
     margin-top: 100px;
     ol {
       overflow: hidden;
+      margin-right: 50px;
       li {
         margin: 10px;
         border-radius: 10px;
@@ -142,19 +136,7 @@ button {
           grid-template-areas:
             "numbering launch-name date date"
             "numbering launch-name rocket-name rocket-name";
-          .numbering {
-            grid-area: numbering;
-            font-size: 40px;
-            font-weight: bold;
-            color: #555555;
-          }
-          .launch-name {
-            grid-area: launch-name;
-            font-size: 30px;
-            margin-left: 40px;
-            color: #555555;
-            font-weight: bold;
-          }
+
           .date {
             grid-area: date;
             text-align: right;
@@ -168,5 +150,110 @@ button {
         }
       }
     }
+  }
+}
+select,
+button {
+  background-color: #1f5284;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+.numbering {
+  grid-area: numbering;
+  font-size: 40px;
+  font-weight: bold;
+  color: #555555;
+}
+.launch-name {
+  grid-area: launch-name;
+  font-size: 30px;
+  margin-left: 40px;
+  color: #555555;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 770) {
+  .header-icons {
+    width: 8px;
+  }
+  select,
+  button {
+    padding: 5px 15px;
+    font-size: 5px;
+  }
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-areas: "right-container";
+  }
+  ol {
+    margin-right: 0px;
+  }
+  .numbering {
+    font-size: 30px;
+  }
+  .launch-name {
+    font-size: 20px;
+    margin-left: 4px;
+  }
+  .date {
+    font-size: 12px;
+  }
+  .rocket-name {
+    font-size: 12px;
+  }
+}
+
+@media screen and(max-width: 420px) {
+  header {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "img launches-text launches-text"
+      "sort year reload";
+    background-color: white;
+    justify-items: baseline;
+  }
+  header img {
+    width: 15em;
+  }
+  .launches-text {
+    font-size: 15px;
+  }
+  .header-icons {
+    width: 10px;
+    padding-left: 10px;
+    vertical-align: middle;
+  }
+  select,
+  button {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
+  .year {
+    margin-left: -50px;
+  }
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-areas: "right-container";
+  }
+
+  ol {
+    margin-right: 0px;
+  }
+  .numbering {
+    font-size: 30px;
+  }
+  .launch-name {
+    font-size: 25px;
+    margin-left: 4px;
+  }
+  .date {
+    font-size: 12px;
+  }
+  .rocket-name {
+    font-size: 12px;
   }
 }
